@@ -1,6 +1,8 @@
 sdk-export-app
 ==============
 
+This application shows how to create a custom plugin and widget with OpenGeo Suite SDK. The purpose of this custom plugin and widget is to add an extra button to the FeatureEditor that can export a digitized (or existing feature) as SHAPE-ZIP or KML (or any other output format that GeoServer supports).
+
 This application can be run with OpenGeo Suite SDK:
 
 ```
