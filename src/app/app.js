@@ -41,7 +41,7 @@ myapp.plugins.FeatureEditor = Ext.extend(gxp.plugins.FeatureEditor, {
         // the manager has a schema with all the info we need to construct the url for GetFeature with our outputFormat
         var url = manager.schema.url;
         var typeName = manager.schema.reader.raw.featureTypes[0].typeName;
-        url += 'service=WFS&request=GetFeature&version=1.1.0&typeName=' + typeName + '&featureID=' + feature.fid + '&outputFormat=' + this.outputFormat;
+        url += 'service=WFS&request=GetFeature&version=1.0.0&typeName=' + typeName + '&featureID=' + feature.fid + '&outputFormat=' + this.outputFormat;
         window.open(url);
     }
 });
