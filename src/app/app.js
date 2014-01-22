@@ -23,12 +23,20 @@ Ext.ns("myapp.plugins");
 // have access to the featureManager. The FeatureEditPopup does not have this
 // access. We will fire an event from our custom FeatureEditPopup called 'exportfeature'.
 myapp.plugins.FeatureEditor = Ext.extend(gxp.plugins.FeatureEditor, {
+
     /** api: ptype = app_editor */
     ptype: "app_featureeditor",
+
     /** api: config[outputFormat]
      *  ``String`` The output format to use for the download. Defaults to a zipped up shape file.
      */   
     outputFormat: "SHAPE-ZIP",
+
+    /** api: config[filenameAttribute]
+     *  ``String`` The name of the attribute to use for the ZIP file's name
+     */
+    filenameAttribute: 'title',
+
     addOutput: function(config) {
         var output = myapp.plugins.FeatureEditor.superclass.addOutput.call(this, config);
         // we override addOutput so that we can listen for exportfeature on the popup
@@ -41,7 +49,9 @@ myapp.plugins.FeatureEditor = Ext.extend(gxp.plugins.FeatureEditor, {
         // the manager has a schema with all the info we need to construct the url for GetFeature with our outputFormat
         var url = manager.schema.url;
         var typeName = manager.schema.reader.raw.featureTypes[0].typeName;
-        url += 'service=WFS&request=GetFeature&version=1.0.0&typeName=' + typeName + '&featureID=' + feature.fid + '&outputFormat=' + this.outputFormat;
+        url += 'service=WFS&request=GetFeature&version=1.0.0&typeName=' + typeName +
+            '&format_options=filename:'+ feature.attributes[this.filenameAttribute] +'.zip' +
+            '&featureID=' + feature.fid + '&outputFormat=' + this.outputFormat;
         window.open(url);
     }
 });
